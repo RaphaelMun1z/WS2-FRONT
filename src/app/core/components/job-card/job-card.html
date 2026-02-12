@@ -1,0 +1,51 @@
+<article class="job-card">
+  <div class="card-top">
+    <div class="company-info">
+      <div class="company-logo">
+        <img
+          [src]="getFonteImage()"
+          [alt]="vaga.fonte"
+          [title]="'Vaga encontrada via ' + vaga.fonte"
+          (error)="handleImageError($event)"
+        />
+      </div>
+
+      <div class="job-details">
+        <h2 [title]="vaga.titulo">{{ vaga.titulo }}</h2>
+        <div class="company-name">
+          {{ getNomeEmpresa() }}
+
+          <span class="separator" *ngIf="isValid(vaga.local)">•</span>
+          <span *ngIf="isValid(vaga.local)">{{ vaga.local }}</span>
+
+          <span *ngIf="isValid(vaga.modalidade)" class="modalidade-text"
+            >({{ vaga.modalidade }})</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-tags">
+    <span class="tag tag-blue" *ngIf="isValid(vaga.regime)">{{ vaga.regime }}</span>
+
+    <span class="tag tag-green" *ngIf="isValid(vaga.salario) && vaga.salario !== 'A combinar'">
+      {{ vaga.salario }}
+    </span>
+
+    <span class="tag tag-purple" *ngIf="isValid(vaga.modalidade)">{{ vaga.modalidade }}</span>
+
+    <span class="tag tag-gray">{{ vaga.fonte }}</span>
+  </div>
+
+  <div class="card-body">
+    <p>{{ getResumoDescricao() }}</p>
+  </div>
+
+  <div class="card-footer">
+    <span class="posted-date" *ngIf="isValid(vaga.dataAnuncio)"
+      >Publicado: {{ vaga.dataAnuncio }}</span
+    >
+    <a [href]="vaga.linkCandidatura" target="_blank" class="btn btn-primary">Ver Detalhes</a>
+  </div>
+</article>
