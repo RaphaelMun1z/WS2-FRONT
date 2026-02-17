@@ -1,0 +1,61 @@
+<form (submit)="submit()" class="relative">
+
+  <div
+    class="flex items-center bg-white border border-slate-300 
+           rounded-2xl px-5 py-4 
+           transition-all duration-200
+           focus-within:border-slate-900"
+  >
+
+    <!-- Ícone -->
+    <svg
+      class="w-5 h-5 text-slate-400 mr-3"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+
+    <!-- Input -->
+    <input
+      type="text"
+      [(ngModel)]="term"
+      name="search"
+      (input)="onInput()"
+      placeholder="Digite cargo, tecnologia ou palavra-chave..."
+      class="flex-1 bg-transparent outline-none text-sm text-slate-800 placeholder:text-slate-400"
+      autocomplete="off"
+    />
+
+    <!-- Botão -->
+    <button
+      type="submit"
+      class="ml-4 px-6 py-2 rounded-xl 
+             bg-slate-900 text-white text-sm font-medium
+             hover:bg-slate-800 transition-colors"
+    >
+      Buscar
+    </button>
+  </div>
+
+  <!-- Sugestões -->
+  <div
+    *ngIf="showSuggestions"
+    class="absolute left-0 right-0 mt-2 bg-white border border-slate-200 
+           rounded-2xl overflow-hidden z-20"
+  >
+    <button
+      *ngFor="let suggestion of filteredSuggestions"
+      type="button"
+      (click)="selectSuggestion(suggestion)"
+      class="w-full text-left px-5 py-3 text-sm text-slate-700 
+             hover:bg-slate-50 transition-colors"
+    >
+      {{ suggestion }}
+    </button>
+  </div>
+
+</form>

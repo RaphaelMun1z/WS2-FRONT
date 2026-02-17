@@ -1,8 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Vaga, FiltrosBusca, Page } from '../models/vaga.models';
+
+export type ApiErrorTipo = 'SERVIDOR_OFFLINE' | 'ERRO_SERVIDOR' | 'ERRO_DESCONHECIDO';
+
+export interface ApiError {
+  tipo: ApiErrorTipo;
+  mensagem: string;
+  status?: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class VagaService {
@@ -31,8 +39,8 @@ export class VagaService {
     }
 
     const temFiltros =
-      filtros.termo ||
-      filtros.empresa ||
+      !!filtros.termo ||
+      !!filtros.empresa ||
       filtros.modalidade !== 'TODAS' ||
       filtros.regime !== 'TODOS' ||
       filtros.fonte !== 'TODAS';
@@ -40,18 +48,44 @@ export class VagaService {
     const url = temFiltros ? `${this.apiUrl}/filtro` : this.apiUrl;
 
     return this.http.get<Page<Vaga>>(url, { params }).pipe(
-      catchError((err) => {
-        console.error('Erro ao buscar vagas', err);
-        return of({
-          content: [],
-          page: {
-            size: size,
-            number: 0,
-            totalElements: 0,
-            totalPages: 0,
-          },
-        } as Page<Vaga>);
+      catchError((error: HttpErrorResponse) => {
+        const apiError = this.handleError(error);
+        console.error('Erro ao buscar vagas:', apiError);
+        return throwError(() => apiError);
       }),
     );
+  }
+
+  testarConexao(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/health`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        const apiError = this.handleError(error);
+        return throwError(() => apiError);
+      }),
+    );
+  }
+
+  private handleError(error: HttpErrorResponse): ApiError {
+    if (error.status === 0) {
+      return {
+        tipo: 'SERVIDOR_OFFLINE',
+        mensagem: 'Não foi possível conectar ao servidor.',
+        status: error.status,
+      };
+    }
+
+    if (error.status >= 500) {
+      return {
+        tipo: 'ERRO_SERVIDOR',
+        mensagem: 'O servidor encontrou um erro interno.',
+        status: error.status,
+      };
+    }
+
+    return {
+      tipo: 'ERRO_DESCONHECIDO',
+      mensagem: 'Ocorreu um erro inesperado.',
+      status: error.status,
+    };
   }
 }

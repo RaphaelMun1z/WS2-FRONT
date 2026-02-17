@@ -1,0 +1,123 @@
+<div class="min-h-screen bg-slate-50 text-slate-800 font-sans">
+  <div class="max-w-7xl mx-auto px-5 py-10">
+    <section
+      class="bg-white rounded-2xl p-8 md:p-10 mb-12 shadow-sm border border-slate-100 w-full"
+    >
+      <div class="mb-6 text-center flex flex-col items-center">
+        <h1
+          class="text-2xl md:text-2.5xl font-serif font-medium text-slate-800 mb-2 tracking-wide flex items-center justify-center gap-3 whitespace-nowrap"
+        >
+          Encontre oportunidades na
+          <img src="/Spondeo-logo.webp" alt="Spondeo" class="h-10 md:h-12 object-contain" />
+        </h1>
+        <p class="text-sm md:text-base text-slate-500 leading-relaxed max-w-xl mx-auto">
+          Descubra vagas alinhadas ao seu perfil em poucos segundos.
+        </p>
+      </div>
+
+      <div>
+        <app-job-search
+          [value]="searchTerm()"
+          (search)="onSearch($event)"
+          class="w-full rounded-lg"
+        >
+        </app-job-search>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10">
+      <aside class="lg:sticky lg:top-24 h-fit">
+        <app-job-filters
+          [modalidade]="modalidade()"
+          [regime]="regime()"
+          [fonte]="fonte()"
+          (filtersChange)="onFiltersChange($event)"
+        ></app-job-filters>
+      </aside>
+
+      <div>
+        <!-- ERRO -->
+        <div *ngIf="hasError()" class="bg-white rounded-3xl p-12 shadow-sm text-center">
+          <div class="text-5xl mb-4">⚠️</div>
+          <h2 class="text-xl font-bold mb-2">Erro ao conectar ao servidor</h2>
+          <p class="text-slate-500 mb-6">Não foi possível carregar as vagas no momento.</p>
+          <button
+            (click)="triggerSearch()"
+            class="px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-700 transition"
+          >
+            Tentar novamente
+          </button>
+        </div>
+
+        <!-- SKELETON -->
+        <div *ngIf="isLoading()" class="grid gap-6 md:grid-cols-2">
+          <article *ngFor="let skeleton of [1, 2, 3, 4, 5, 6]" class="job-card">
+            <div class="card-top">
+              <div class="company-info">
+                <div class="company-logo bg-slate-200 rounded-lg animate-pulse"></div>
+                <div class="job-details w-full">
+                  <div class="h-5 bg-slate-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                  <div class="h-4 bg-slate-100 rounded w-1/2 animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-tags">
+              <div class="h-6 w-16 bg-slate-100 rounded-full animate-pulse"></div>
+              <div class="h-6 w-20 bg-slate-200 rounded-full animate-pulse"></div>
+              <div class="h-6 w-14 bg-slate-100 rounded-full animate-pulse"></div>
+            </div>
+
+            <div class="card-body space-y-2">
+              <div class="h-4 bg-slate-100 rounded w-full animate-pulse"></div>
+              <div class="h-4 bg-slate-100 rounded w-5/6 animate-pulse"></div>
+              <div class="h-4 bg-slate-100 rounded w-4/6 animate-pulse"></div>
+            </div>
+
+            <div class="card-footer">
+              <div class="h-4 bg-slate-100 rounded w-24 animate-pulse"></div>
+              <div class="h-9 w-28 bg-slate-200 rounded-lg animate-pulse"></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div
+          *ngIf="!isLoading() && !hasError() && isEmpty()"
+          class="bg-white rounded-3xl p-16 shadow-sm text-center"
+        >
+          <div class="text-6xl mb-6">🔍</div>
+
+          <h2 class="text-xl font-bold mb-3">Nenhuma vaga encontrada</h2>
+
+          <p class="text-slate-500 mb-6">Tente ajustar os filtros ou buscar por outro termo.</p>
+
+          <button
+            (click)="resetBusca()"
+            class="px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-700 transition"
+          >
+            Limpar busca
+          </button>
+        </div>
+
+        <!-- LISTA -->
+        <div *ngIf="!isLoading() && !hasError() && !isEmpty()">
+          <div class="grid gap-6 md:grid-cols-2">
+            @for (vaga of vagas(); track vaga.id) {
+              <app-job-card [vaga]="vaga"></app-job-card>
+            }
+          </div>
+
+          <div class="mt-10">
+            <app-job-pagination
+              [currentPage]="currentPage()"
+              [totalPages]="totalPages()"
+              (pageChange)="onPageChange($event)"
+            >
+            </app-job-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

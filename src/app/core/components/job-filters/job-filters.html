@@ -1,0 +1,60 @@
+<div class="bg-white p-6 rounded-2xl shadow-sm space-y-8">
+
+  <!-- MODALIDADE -->
+  <div>
+    <h3 class="filter-title">Modalidade</h3>
+
+    <div class="radio-group">
+      <label *ngFor="let m of modalidades" class="radio-item">
+        <input
+          type="radio"
+          name="modalidade"
+          [value]="m"
+          [(ngModel)]="modalidade"
+          (change)="emit()"
+        />
+        <span class="custom-radio"></span>
+        <span>{{ m }}</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- REGIME -->
+  <div>
+    <h3 class="filter-title">Regime</h3>
+
+    <div class="radio-group">
+      <label *ngFor="let r of regimes" class="radio-item">
+        <input
+          type="radio"
+          name="regime"
+          [value]="r"
+          [(ngModel)]="regime"
+          (change)="emit()"
+        />
+        <span class="custom-radio"></span>
+        <span>{{ r }}</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- FONTE -->
+  <div>
+    <h3 class="filter-title">Fonte</h3>
+
+    <div class="radio-group">
+      <label *ngFor="let f of fontes" class="radio-item">
+        <input
+          type="radio"
+          name="fonte"
+          [value]="f"
+          [(ngModel)]="fonte"
+          (change)="emit()"
+        />
+        <span class="custom-radio"></span>
+        <span>{{ f }}</span>
+      </label>
+    </div>
+  </div>
+
+</div>

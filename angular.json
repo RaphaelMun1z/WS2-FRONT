@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "Angular-Fides": {
+    "Angular-Spondeo": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Angular-Fides:build:production"
+              "buildTarget": "Angular-Spondeo:build:production"
             },
             "development": {
-              "buildTarget": "Angular-Fides:build:development"
+              "buildTarget": "Angular-Spondeo:build:development"
             }
           },
           "defaultConfiguration": "development"
