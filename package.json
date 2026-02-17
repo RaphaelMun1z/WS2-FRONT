@@ -5,9 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-	"github-build": "ng build --configuration production --base-href https://raphaelmun1z.github.io/WS2-FRONT/",
+	"github-build": "ng build --configuration production",
 	"github-deploy": "npx angular-cli-ghpages --dir=dist/browser --no-silent",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
   "prettier": {
