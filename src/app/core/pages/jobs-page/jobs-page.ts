@@ -15,6 +15,7 @@ import { JobFilters } from '../../components/job-filters/job-filters';
 })
 export class JobsPage {
   private vagaService = inject(VagaService);
+  readonly skeletonItems = Array.from({ length: 12 }, (_, index) => index);
 
   searchTerm = signal('');
   modalidade = signal('TODAS');

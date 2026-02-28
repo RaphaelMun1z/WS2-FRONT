@@ -54,32 +54,12 @@
 
         <!-- SKELETON -->
         <div *ngIf="isLoading()" class="grid gap-6 md:grid-cols-2">
-          <article *ngFor="let skeleton of [1, 2, 3, 4, 5, 6]" class="job-card">
-            <div class="card-top">
-              <div class="company-info">
-                <div class="company-logo bg-stone-200 rounded-lg animate-pulse"></div>
-                <div class="job-details w-full">
-                  <div class="h-5 bg-stone-200 rounded w-3/4 mb-2 animate-pulse"></div>
-                  <div class="h-4 bg-stone-100 rounded w-1/2 animate-pulse"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-tags">
-              <div class="h-6 w-16 bg-stone-100 rounded-full animate-pulse"></div>
-              <div class="h-6 w-20 bg-stone-200 rounded-full animate-pulse"></div>
-              <div class="h-6 w-14 bg-stone-100 rounded-full animate-pulse"></div>
-            </div>
-
-            <div class="card-body space-y-2">
-              <div class="h-4 bg-stone-100 rounded w-full animate-pulse"></div>
-              <div class="h-4 bg-stone-100 rounded w-5/6 animate-pulse"></div>
-              <div class="h-4 bg-stone-100 rounded w-4/6 animate-pulse"></div>
-            </div>
-
-            <div class="card-footer">
-              <div class="h-4 bg-stone-100 rounded w-24 animate-pulse"></div>
-              <div class="h-9 w-28 bg-stone-200 rounded-lg animate-pulse"></div>
+          <article *ngFor="let skeleton of skeletonItems" class="skeleton-card">
+            <div class="skeleton-content">
+              <div class="skeleton-line skeleton-title skeleton-shimmer"></div>
+              <div class="skeleton-line skeleton-description skeleton-shimmer"></div>
+              <div class="skeleton-line skeleton-description skeleton-description-short skeleton-shimmer"></div>
+              <div class="skeleton-button skeleton-shimmer"></div>
             </div>
           </article>
         </div>
