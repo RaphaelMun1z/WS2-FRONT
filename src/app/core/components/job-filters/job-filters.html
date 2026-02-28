@@ -47,12 +47,12 @@
         <input
           type="radio"
           name="fonte"
-          [value]="f"
+          [value]="f.value"
           [(ngModel)]="fonte"
           (change)="emit()"
         />
         <span class="custom-radio"></span>
-        <span>{{ f }}</span>
+        <span>{{ f.label }}</span>
       </label>
     </div>
   </div>
