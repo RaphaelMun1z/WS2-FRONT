@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :host {
-  --primary: #0f172a;
-  --accent: #3b82f6;
-  --bg-body: #f8fafc;
+  --primary: #4f3728;
+  --accent: #7b4f35;
+  --bg-body: #f6f1ed;
   --bg-card: #ffffff;
-  --border: #e2e8f0;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
+  --border: #e8dbcf;
+  --text-main: #3b2b21;
+  --text-muted: #7a6658;
   --radius: 12px;
 
   font-family: 'Inter', sans-serif;

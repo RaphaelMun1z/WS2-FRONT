@@ -1,13 +1,13 @@
 <div class="mt-12 flex justify-center">
-  <nav class="flex items-center gap-2">
+  <nav class="flex items-center gap-2 flex-wrap justify-center">
 
     <button
       *ngFor="let page of pages"
       (click)="change(page)"
       class="px-4 py-2 rounded-lg border transition"
       [ngClass]="{
-        'bg-black text-white border-black': page === currentPage,
-        'bg-white border-gray-300 hover:bg-gray-100': page !== currentPage
+        'bg-[#6b3f2b] text-white border-[#6b3f2b]': page === currentPage,
+        'bg-white border-stone-300 text-stone-700 hover:bg-stone-100': page !== currentPage
       }"
     >
       {{ page + 1 }}

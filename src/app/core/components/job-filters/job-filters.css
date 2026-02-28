@@ -1,7 +1,7 @@
 .filter-title {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #64748b;
+  color: #7a6658;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 14px;
@@ -19,6 +19,7 @@
   gap: 12px;
   font-size: 0.9rem;
   cursor: pointer;
+  color: #3f2e23;
 }
 
 .radio-item input {
@@ -31,15 +32,15 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid #cbd5e1;
+  border: 2px solid #d7c4b4;
   background: #ffffff;
   position: relative;
   transition: all 0.2s ease;
 }
 
 .radio-item input:checked + .custom-radio {
-  border-color: #3b82f6;
-  background: #3b82f6;
+  border-color: #6b3f2b;
+  background: #6b3f2b;
 }
 
 .radio-item input:checked + .custom-radio::after {
@@ -52,4 +53,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.radio-item:hover .custom-radio {
+  border-color: #b68f74;
 }
